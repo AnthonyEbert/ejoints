@@ -1,0 +1,18 @@
+Package: ejoints
+Title: Empirical joint densities
+Version: 0.1.0
+Authors@R: person("Anthony", "Ebert", email = "anthonyebert+CRAN@gmail.com", role = c("aut", "cre"))
+Description: Tools for working with empirical joint densities
+Depends: R (>= 3.4.1)
+License: What license is it under?
+Encoding: UTF-8
+Imports:
+  MASS, 
+  mvtnorm
+Suggests: 
+  knitr, 
+  rmarkdown, 
+  ggplot2, 
+  dplyr
+LazyData: true
+RoxygenNote: 6.0.1
