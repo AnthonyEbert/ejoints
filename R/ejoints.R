@@ -48,7 +48,7 @@ rejoint <- function(n, input, sigma = 1){
 
   output <- apply(input[sample_i,], 1, mvrnorm_ejoint, sigma = sigma)
 
-  return(output)
+  return(t(output))
 }
 
 
