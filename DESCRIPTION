@@ -1,10 +1,10 @@
 Package: ejoints
 Title: Empirical joint densities
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Anthony", "Ebert", email = "anthonyebert+CRAN@gmail.com", role = c("aut", "cre"))
 Description: Tools for working with empirical joint densities
 Depends: R (>= 3.4.1)
-License: What license is it under?
+License: GPL-2 | file LICENSE
 Encoding: UTF-8
 Imports:
   MASS, 
