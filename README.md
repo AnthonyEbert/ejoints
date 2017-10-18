@@ -1,0 +1,2 @@
+# ejoints
+Empirical joint distribution
