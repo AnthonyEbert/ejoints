@@ -33,6 +33,16 @@ dmvnorm_ejoint <- function(mu, sigmai, x, threshold = 50){
   return(output)
 }
 
+dnorm_ejoint <- function(mu, sigmai, x){
+  x <- as.vector(x)
+  mu <- as.vector(mu)
+
+
+  output <- dnorm(x, mean = mu, sd = sigmai)
+
+  return(output)
+}
+
 
 #' Sample from empirical joint density
 #' @param n number of samples required
@@ -67,6 +77,20 @@ dejoint <- function(x, input, sigma = 1){
   output <- apply(input, 1, dmvnorm_ejoint, x = x, sigmai = sigma)
 
   return(sum(output)/dim(input)[1])
+}
+
+#' Sample from empirical joint density
+#' @param x the point to be evaluated
+#' @param input data in matrix form
+#' @param sigma the standard deviation used to construct the empirical
+#' @export
+dejoint_1 <- function(x, input, sigma = 1){
+
+  x <- as.vector(x)
+
+  output <- sapply(input, dnorm_ejoint, x = x, sigmai = sigma)
+
+  return(rowSums(output)/length(input))
 }
 
 dejoint2 <- function(x, y, input, sigma = 1){
