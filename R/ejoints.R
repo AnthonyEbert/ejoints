@@ -1,37 +1,8 @@
 
 
 
-create_ejoint <- function(input, sigma){
-  output <- list(input = input, sigma = sigma)
-  return(output)
-}
 
 
-mvrnorm_ejoint <- function(mu, sigma){
-  mu <- as.vector(mu)
-
-  output <- MASS::mvrnorm(
-    n = 1,
-    mu = mu,
-    Sigma = sigma * diag(length(mu))
-  )
-  return(output)
-}
-
-dmvnorm_ejoint <- function(mu, sigmai, x, threshold = 50){
-  x <- as.vector(x)
-  mu <- as.vector(mu)
-
-  indic <- stats::dist(mu - x)/sigmai < threshold
-
-  if(indic){
-    output <- mvtnorm::dmvnorm(x, mean = mu, sigma = sigmai * diag(length(mu)))
-  } else {
-    output <- 0
-  }
-
-  return(output)
-}
 
 
 #' Sample from empirical joint density
@@ -60,21 +31,13 @@ rejoint <- function(n, input, sigma = 1){
 dejoint <- function(x, input, sigma = 1){
 
   x <- as.vector(x)
+
+  multi <- ifelse(length(x) == 1, FALSE, TRUE)
   input <- as.matrix(input)
 
   stopifnot(length(x) == dim(input)[2])
 
-  output <- apply(input, 1, dmvnorm_ejoint, x = x, sigmai = sigma)
-
-  return(sum(output)/dim(input)[1])
-}
-
-dejoint2 <- function(x, y, input, sigma = 1){
-
-  input <- as.matrix(input)
-
-
-  output <- apply(input, 1, dmvnorm_ejoint, x = c(x,y), sigmai = sigma)
+  output <- apply(input, 1, dmvnorm_ejoint, x = x, sigmai = sigma, multi = multi, support = NULL)
 
   return(sum(output)/dim(input)[1])
 }
