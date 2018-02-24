@@ -43,6 +43,16 @@ dnorm_ejoint <- function(mu, sigmai, x){
   return(output)
 }
 
+pnorm_ejoint <- function(mu, sigmai, x){
+  x <- as.vector(x)
+  mu <- as.vector(mu)
+
+
+  output <- pnorm(x, mean = mu, sd = sigmai)
+
+  return(output)
+}
+
 
 #' Sample from empirical joint density
 #' @param n number of samples required
@@ -89,6 +99,16 @@ dejoint_1 <- function(x, input, sigma = 1){
   x <- as.vector(x)
 
   output <- sapply(input, dnorm_ejoint, x = x, sigmai = sigma)
+
+  return(rowSums(output)/length(input))
+}
+
+#' @export
+pejoint_1 <- function(x, input, sigma = 1){
+
+  x <- as.vector(x)
+
+  output <- sapply(input, pnorm_ejoint, x = x, sigmai = sigma)
 
   return(rowSums(output)/length(input))
 }
