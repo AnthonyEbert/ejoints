@@ -106,11 +106,21 @@ dejoint_1 <- function(x, input, sigma = 1){
 #' @export
 pejoint_1 <- function(x, input, sigma = 1){
 
-  x <- as.vector(x)
-
-  output <- sapply(input, pnorm_ejoint, x = x, sigmai = sigma)
+  output <- sapply(input, pnorm, mean = x, sd = sigma)
 
   return(rowSums(output)/length(input))
+}
+
+#' @export
+rejoint_1 <- function(n, input, sigma = 1){
+
+  m <- length(input)
+
+  sample_i <- sample(input, n, replace = TRUE)
+
+  output <- rnorm(n, mean = 0, sd = sigma) + sample_i
+
+  return(output)
 }
 
 dejoint2 <- function(x, y, input, sigma = 1){
